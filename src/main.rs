@@ -6,6 +6,7 @@ use serde::Deserialize;
 use dotenv::dotenv;
 use std::env;
 
+
 #[derive(Deserialize)]
 struct RegisterUser {
     username: String,
@@ -89,6 +90,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             .route("/register", web::post().to(register_user))
             .route("/login", web::post().to(login_user))
+            
             // 提供静态文件服务
             .service(fs::Files::new("/", "./static").index_file("index.html"))
     })

@@ -1,18 +1,138 @@
-<!-- static/index.html -->
-<!DOCTYPE html >
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial scale=1">
-    <title>Campus Forum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beyt heaven 服务器简介</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+        .content {
+            padding: 2em 0;
+        }
+        .section {
+            background: #fff;
+            padding: 1em;
+            margin-bottom: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea {
+            margin-bottom: 1em;
+            padding: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 0.8em;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+        .forum {
+            background: #fff;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .forum h3 {
+            margin-top: 0;
+        }
+        .forum-post {
+            border-bottom: 1px solid #ddd;
+            padding: 0.5em 0;
+        }
+        .forum-post:last-child {
+            border-bottom: none;
+        }
+        .forum-post h4 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Campus Forum!</h1>
-    <p>This is a place for students to share ideas & discussions.</p>
-    <nav>
-        <ul>
-            <li><a href="/register">Sign up</li>
-            <li><a href="/login">Log in</li>
-        </ul>
-    </nav>
+    <header>
+        <div class="container">
+            <h1>我的游戏服务器</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <!-- 服务器简介 -->
+            <section class="section">
+                <h2>服务器简介</h2>
+                <p>欢迎来到bhs游戏服务器！我们致力于提供最佳的游戏体验，包括高质量的游戏环境和活跃的社区支持。我们的服务器提供以下功能：</p>
+                <ul>
+                    <li>依托答辩的运维</li>
+                    <li>并不稳定的游戏性能和电子垃圾</li>
+                    <li>只会冒泡的玩家社区和友好的管理团队</li>
+                    <li>基本不更新和维护</li>
+                    <li>单一的游戏模式和活动</li>
+                </ul>
+                <p>无论你是新手还是老玩家，我们都欢迎你加入我们的游戏服务器，体验最棒的游戏乐趣！</p>
+            </section>
+
+            <!-- 联系表单 -->
+            <section class="section">
+                <h2>联系我们</h2>
+                <form action="#" method="post">
+                    <label for="name">姓名：</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">电子邮件：</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">留言：</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+
+                    <button type="submit">发送</button>
+                </form>
+            </section>
+
+            <!-- 网络论坛 -->
+            <section class="section forum">
+                <h2>网络论坛</h2>
+                <div class="forum-post">
+                    <h4>帖子标题 1</h4>
+                    <p>水水水水水</p>
+                </div>
+                <div class="forum-post">
+                    <h4>帖子标题 2</h4>
+                    <p>还没做论坛功能</p>
+                </div>
+                <!-- 添加更多帖子 -->
+            </section>
+        </div>
+    </div>
 </body>
+</html>
