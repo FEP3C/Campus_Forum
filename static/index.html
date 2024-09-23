@@ -1,138 +1,115 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>beyt heaven 服务器简介</title>
+    <title>Campus Forum</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
-            color: #333;
+        }
+        .header {
+            background-color: #3a6ea5;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav {
+            background-color: #5a9bd5;
+            overflow: hidden;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #7eb3e5;
         }
         .container {
             width: 80%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding: 1em 0;
-            text-align: center;
-        }
-        .content {
-            padding: 2em 0;
-        }
-        .section {
-            background: #fff;
-            padding: 1em;
-            margin-bottom: 1em;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h2 {
-            color: #333;
+        .table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input, textarea {
-            margin-bottom: 1em;
-            padding: 0.8em;
+        .table th, .table td {
             border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 8px;
+            text-align: left;
         }
-        button {
-            padding: 0.8em;
-            background: #333;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .table th {
+            background-color: #e0e0e0;
         }
-        button:hover {
-            background: #555;
-        }
-        .forum {
-            background: #fff;
-            padding: 1em;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .forum h3 {
-            margin-top: 0;
-        }
-        .forum-post {
-            border-bottom: 1px solid #ddd;
-            padding: 0.5em 0;
-        }
-        .forum-post:last-child {
-            border-bottom: none;
-        }
-        .forum-post h4 {
-            margin: 0;
-            font-size: 1.2em;
+        .section-title {
+            background-color: #d9edf7;
+            padding: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>我的游戏服务器</h1>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="content">
-            <!-- 服务器简介 -->
-            <section class="section">
-                <h2>服务器简介</h2>
-                <p>欢迎来到bhs游戏服务器！我们致力于提供最佳的游戏体验，包括高质量的游戏环境和活跃的社区支持。我们的服务器提供以下功能：</p>
-                <ul>
-                    <li>依托答辩的运维</li>
-                    <li>并不稳定的游戏性能和电子垃圾</li>
-                    <li>只会冒泡的玩家社区和友好的管理团队</li>
-                    <li>基本不更新和维护</li>
-                    <li>单一的游戏模式和活动</li>
-                </ul>
-                <p>无论你是新手还是老玩家，我们都欢迎你加入我们的游戏服务器，体验最棒的游戏乐趣！</p>
-            </section>
-
-            <!-- 联系表单 -->
-            <section class="section">
-                <h2>联系我们</h2>
-                <form action="#" method="post">
-                    <label for="name">姓名：</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">电子邮件：</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="message">留言：</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-
-                    <button type="submit">发送</button>
-                </form>
-            </section>
-
-            <!-- 网络论坛 -->
-            <section class="section forum">
-                <h2>网络论坛</h2>
-                <div class="forum-post">
-                    <h4>帖子标题 1</h4>
-                    <p>水水水水水</p>
-                </div>
-                <div class="forum-post">
-                    <h4>帖子标题 2</h4>
-                    <p>还没做论坛功能</p>
-                </div>
-                <!-- 添加更多帖子 -->
-            </section>
-        </div>
+    <div class="header">
+        <h1>Arch Linux 论坛</h1>
+    </div>
+    <div class="nav">
+        <a href="#">首页</a>
+        <a href="#">服务</a>
+        <a href="#">搜索</a>
+        <a href="#">注册</a>
+        <a href="#">登录</a>
+    </div>
+    <dihttp://localhost:8080v class="container">
+        <p>您的未登录。</p>
+        <div class="section-title">技术交流与探讨</div>
+        <table class="table">
+            <tr>
+                <th>板块</th>
+                <th>主题</th>
+                <th>帖子</th>
+                <th>最后发表</th>
+            </tr>
+            <tr>
+                <td>新手园地</td>
+                <td>2,215</td>
+                <td>13,540</td>
+                <td>今天 00:27:14 by JodyJohn</td>
+            </tr>
+            <tr>
+                <td>安装问题</td>
+                <td>1,007</td>
+                <td>6,798</td>
+                <td>2024-09-16 15:40:01 by lau96</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+        <div class="section-title">Arch 主题相关</div>
+        <table class="table">
+            <tr>
+                <th>板块</th>
+                <th>主题</th>
+                <th>帖子</th>
+                <th>最后发表</th>
+            </tr>
+            <tr>
+                <td>新闻和公告</td>
+                <td>115</td>
+                <td>932</td>
+                <td>2023-11-30 23:47:33 by hougelangley</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
     </div>
 </body>
 </html>
