@@ -16,6 +16,7 @@ async fn main() -> std::io::Result<()> {
 
     println!("Connected to the database!");
     println!("Server is running at http://localhost:8080");
+    println!("Quit the server by pressing Ctrl+C");
 
     HttpServer::new(move || {
         App::new()
