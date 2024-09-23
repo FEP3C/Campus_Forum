@@ -81,6 +81,8 @@ async fn main() -> std::io::Result<()> {
         .expect("Failed to connect to the database.");
 
     println!("Connected to the database!");
+    println!("Server is running at http://localhost:8080");
+    println!("Type Ctrl+C to quit the Server");
 
     HttpServer::new(move || {
         App::new()
