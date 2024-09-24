@@ -22,6 +22,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(pool.clone()))
             .route("/login", web::post().to(handlers::login_user))
+            .route("/register", web::post().to(handlers::register_user)
             .service(actix_files::Files::new("/", "./static").index_file("index.html"))
     })
     .bind("127.0.0.1:8080")?
