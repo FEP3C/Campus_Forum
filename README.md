@@ -8,7 +8,7 @@
 
 - 前端: WebAssembly (Wasm)
 - 后端: Rust
-- 数据库: [MySQL]
+- 数据库: MySQL
 
 ## 主要功能
 
@@ -40,15 +40,15 @@
 
 ## 安装和运行
 
-[待补充]
+有待开发
 
 ## 许可证
 
-[待定]
+详情请见(LICENSE)[LICENSE]文件
 
 ## 联系我们
 
-- 编程社邮箱: [pccctech2023@163.com]
-- 科技社邮箱: [weiminghuang348@gmail.com]
+- 编程社邮箱: pccctech2023@163.com
+- 科技社邮箱: weiminghuang348@gmail.com
 
 让我们携手共创福州二中的线上交流新天地!
