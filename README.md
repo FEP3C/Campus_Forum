@@ -44,7 +44,7 @@
 
 ## 许可证
 
-详情请见(LICENSE)[LICENSE]文件
+详情请见 (LICENSE)[LICENSE] 文件
 
 ## 联系我们
 
