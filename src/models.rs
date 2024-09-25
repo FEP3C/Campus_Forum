@@ -3,12 +3,19 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LoginUser {
     pub username: String,
-    pub password: String,
+    pub password: String
 }
 
-#[derive(Debug, sqlx::FromRow)]
-pub struct User {
-    pub id: i32,
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RegisterUser {
     pub username: String,
-    pub password_hash: String,
+    pub password: String,
+    pub email: String
+}
+
+#[allow(dead_code)]
+struct User {
+    id: i32,
+    username: String,
+    password_hash: String,
 }

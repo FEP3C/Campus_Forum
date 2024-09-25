@@ -15,20 +15,20 @@ pub fn generate_jwt(username: &str) -> Result<String, Box<dyn std::error::Error>
         .expect("valid timestamp")
         .timestamp();
 
-    let claims = Claims {
+    let claims: Claims = Claims {
         sub: username.to_string(),
         exp: expiration as usize,
     };
 
-    let key = EncodingKey::from_secret("my_secret_key".as_ref());
-    let header = jsonwebtoken::Header::new(Algorithm::HS256); // 确保这里导入的是jsonwebtoken库的Header
+    let key: EncodingKey = EncodingKey::from_secret("my_secret_key".as_ref());
+    let header: jsonwebtoken::Header = jsonwebtoken::Header::new(Algorithm::HS256); // 确保这里导入的是jsonwebtoken库的Header
 
-    let token = encode(&header, &claims, &key)?;
+    let token: String = encode(&header, &claims, &key)?;
     Ok(token)
 }
 
 pub fn validate_jwt(token: &str) -> bool {
-    let secret = env::var("JWT_SECRET").unwrap_or_else(|_| "my_secret_key".to_string()); // 确保这是您希望使用的默认值
+    let secret: String = env::var("JWT_SECRET").unwrap_or_else(|_| "my_secret_key".to_string()); // 确保这是您希望使用的默认值
 
     decode::<Claims>(
         token,
