@@ -2,7 +2,7 @@ use actix_web::{web, HttpResponse};
 use sqlx::MySqlPool;
 use bcrypt::{hash, DEFAULT_COST};
 use crate::models::LoginUser;
-use crate::auth::create_jwt;
+use crate::auth::generate_jwt;
 use serde_json::json;
 // 登录和注册接口
 
@@ -17,7 +17,7 @@ pub async fn login_user(
             // 验证密码
             if bcrypt::verify(&form.password, &user.password_hash).unwrap() {
                 // 生成 JWT
-                let token = create_jwt(&user.username).unwrap(); // 使用一个统一的 JWT 创建函数
+                let token = generate_jwt(&user.username).unwrap(); // 使用一个统一的 JWT 创建函数
                 return HttpResponse::Ok().json(json!({ "token": token }));
             }
             HttpResponse::Unauthorized().body("Invalid password.")
