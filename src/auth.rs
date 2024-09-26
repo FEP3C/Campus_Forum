@@ -1,39 +1,50 @@
-use jsonwebtoken::{Algorithm, encode, EncodingKey, decode, DecodingKey, Validation};
+use actix_web::{web, HttpResponse, Error, post};
 use serde::{Deserialize, Serialize};
-use std::env;
+use sqlx::MySqlPool;
+use jsonwebtoken::{encode, Header, EncodingKey, Algorithm};
+use bcrypt::verify;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Deserialize)]
+pub struct LoginData {
+    username: String,
+    password: String,
+}
+
+#[derive(Serialize)]
 pub struct Claims {
-    pub sub: String,  // subject (通常是用户ID或用户名)
-    pub exp: usize,   // 过期时间
-    // 你可以添加其他你需要的字段
+    sub: String,
+    role: String,
+    exp: usize, // 过期时间
 }
 
-pub fn generate_jwt(username: &str) -> Result<String, Box<dyn std::error::Error>> {
-    let expiration = chrono::Utc::now()
-        .checked_add_signed(chrono::Duration::hours(24))
-        .expect("valid timestamp")
-        .timestamp();
-
-    let claims: Claims = Claims {
-        sub: username.to_string(),
-        exp: expiration as usize,
-    };
-
-    let key: EncodingKey = EncodingKey::from_secret("my_secret_key".as_ref());
-    let header: jsonwebtoken::Header = jsonwebtoken::Header::new(Algorithm::HS256); // 确保这里导入的是jsonwebtoken库的Header
-
-    let token: String = encode(&header, &claims, &key)?;
-    Ok(token)
-}
-
-pub fn validate_jwt(token: &str) -> bool {
-    let secret: String = env::var("JWT_SECRET").unwrap_or_else(|_| "my_secret_key".to_string()); // 确保这是您希望使用的默认值
-
-    decode::<Claims>(
-        token,
-        &DecodingKey::from_secret(secret.as_ref()),
-        &Validation::default(),
+#[post("/login")]
+async fn login(data: web::Json<LoginData>, pool: web::Data<MySqlPool>) -> Result<HttpResponse, Error> {
+    let user = sqlx::query!(
+        "SELECT username, password, role FROM users WHERE username = ?",
+        data.username
     )
-    .is_ok()
+    .fetch_one(pool.get_ref())
+    .await;
+
+    match user {
+        Ok(user_row) => {
+            if verify(&data.password, &user_row.password).unwrap() {
+                let my_claims = Claims {
+                    sub: data.username.clone(),
+                    role: user_row.role,
+                    exp: 2000000000,
+                };
+                let token = encode(
+                    &Header::new(Algorithm::HS256),
+                    &my_claims,
+                    &EncodingKey::from_secret("your_secret_key".as_ref())
+                ).unwrap();
+
+                return Ok(HttpResponse::Ok().json(serde_json::json!({ "token": token, "username": data.username })));
+            }
+        }
+        Err(_) => return Ok(HttpResponse::Unauthorized().body("Invalid credentials")),
+    }
+
+    Ok(HttpResponse::Unauthorized().body("Invalid credentials"))
 }
