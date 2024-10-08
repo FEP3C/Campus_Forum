@@ -29,3 +29,28 @@ async fn main() -> std::io::Result<()> {
     .run()
     .await
 }
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use serde::Serialize;
+
+#[derive(Serialize)]
+struct ApiResponse {
+    message: String,
+}
+
+#[get("/api/data")]
+async fn get_data() -> impl Responder {
+    HttpResponse::Ok().json(ApiResponse {
+        message: String::from("Hello from the backend!"),
+    })
+}
+
+#[actix_web::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        App::new()
+            .service(get_data)
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
+}
