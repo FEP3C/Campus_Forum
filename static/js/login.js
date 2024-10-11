@@ -13,6 +13,7 @@ document.getElementById('login-form').addEventListener('submit', async function 
     });
 
     const data = await response.json();
+    data.token = ;
     
     if (data.token) {
         localStorage.setItem('token', data.token);
