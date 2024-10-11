@@ -1,6 +1,6 @@
-use actix_web::{web, HttpResponse};
+use actix_web::{web, HttpResponse, http::header::LOCATION, cookie::Cookie};
 use sqlx::MySqlPool;
-use bcrypt::{hash, DEFAULT_COST};
+use bcrypt::{hash, DEFAULT_COST, verify};
 use crate::models::{LoginUser, RegisterUser};
 use crate::auth::generate_jwt;
 use serde_json::json;
@@ -10,13 +10,17 @@ pub async fn login_user(
     form: web::Json<LoginUser>,
 ) -> HttpResponse {
     match sqlx::query!("SELECT * FROM users WHERE username = ?", &form.username)
-        .fetch_optional(pool.get_ref())
-        .await {
+    .fetch_optional(pool.get_ref())
+    .await {
         Ok(Some(user)) => {
-            match bcrypt::verify(&form.password, &user.password_hash) {
+            match verify(&form.password, &user.password_hash) { // 移除了.await
                 Ok(true) => {
                     let token = generate_jwt(&user.username).unwrap();
-                    HttpResponse::Ok().json(json!({ "token": token }))
+                    // 重定向到首页并设置JWT Cookie
+                    HttpResponse::SeeOther()
+                    .insert_header((LOCATION, "/"))
+                    .cookie(Cookie::build("jwt", token.clone()).finish())
+                    .finish()
                 },
                 Ok(false) => HttpResponse::Unauthorized().body("Invalid password."),
                 Err(e) => {
@@ -46,13 +50,13 @@ pub async fn register_user(
     };
 
     match sqlx::query!("SELECT * FROM users WHERE username = ?", &form.username)
-        .fetch_optional(&mut tx)
-        .await {
+    .fetch_optional(&mut tx)
+    .await {
         Ok(Some(_)) => {
             HttpResponse::Conflict().body("Username already exists.")
         }
         Ok(None) => {
-            let password_hash = match hash(&form.password, DEFAULT_COST) {
+            let password_hash = match hash(&form.password, DEFAULT_COST) { // 移除了.await
                 Ok(hash) => hash,
                 Err(e) => {
                     eprintln!("Password hashing error: {}", e);
@@ -62,9 +66,9 @@ pub async fn register_user(
 
             match sqlx::query!(
                 "INSERT INTO users (username, password_hash, created_at, email) VALUES (?, ?, NOW(), ?)",
-                &form.username,
-                password_hash,
-                &form.email
+                               &form.username,
+                               password_hash,
+                               &form.email
             )
             .execute(&mut tx)
             .await {
@@ -74,7 +78,10 @@ pub async fn register_user(
                         return HttpResponse::InternalServerError().body("Failed to commit transaction.");
                     }
                     println!("User created: {:?}", result);
-                    HttpResponse::Created().json(json!({ "message": "User created successfully" }))
+                    // 重定向到登录页面
+                    HttpResponse::SeeOther()
+                    .insert_header((LOCATION, "/login"))
+                    .finish()
                 }
                 Err(e) => {
                     eprintln!("Failed to create user: {}", e);

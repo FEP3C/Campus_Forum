@@ -2,8 +2,8 @@ mod auth;
 mod handlers;
 mod models;
 
-use actix_web::{web, App, HttpServer, HttpResponse, Responder};
 use actix_files::Files;
+use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
 use serde::Serialize;
 use sqlx::mysql::MySqlPool;
